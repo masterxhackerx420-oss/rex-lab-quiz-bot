@@ -1,0 +1,214 @@
+[
+  {
+    "id": "ports",
+    "title": "Ports",
+    "aliases": [
+      "port",
+      "ports"
+    ],
+    "body": "A port is a numbered door on a host, from 0 to 65535, where a program can listen. Numbers like 22, 80, and 443 are conventions, not laws. Defenders care which doors are open, on which machines, and whether that matches what should be running. Close what you don\u2019t need. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "headers",
+    "title": "Security headers",
+    "aliases": [
+      "header",
+      "headers",
+      "security header",
+      "security headers",
+      "csp",
+      "hsts",
+      "content-security-policy",
+      "content security policy"
+    ],
+    "body": "Security headers are extra instructions a web server sends the browser: stay on HTTPS, refuse surprise scripts, don\u2019t let other sites frame this page. They don\u2019t fix a broken app, but they shrink the damage. Add them on sites you run, and try a strict policy in a lab before you enforce it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "phishing",
+    "title": "Phishing",
+    "aliases": [
+      "phishing",
+      "phish",
+      "social engineering",
+      "pretexting",
+      "bec",
+      "business email compromise"
+    ],
+    "body": "Phishing is a lie with a link, an attachment, or a request for money or access. The writing can look perfect. Check the real domain, slow down when a message is urgent, and confirm payment changes on a number you already had \u2014 not the one in the email. \u201cThey knew my name\u201d is not proof. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "passwords",
+    "title": "Passwords",
+    "aliases": [
+      "password",
+      "passwords",
+      "password hygiene",
+      "passphrase",
+      "credential"
+    ],
+    "body": "A good password is long and unique to that account. A password manager remembers them so you don\u2019t reuse one everywhere. Add multi-factor authentication so a leak isn\u2019t enough. Never put live passwords in code, tickets, screenshots, or chat. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "malware",
+    "title": "Malware",
+    "aliases": [
+      "malware",
+      "trojan",
+      "virus",
+      "worm"
+    ],
+    "body": "Malware is software that spies, locks files, or takes control. Don\u2019t open surprise attachments or enable macros to \u201csee the invoice.\u201d Keep backups the infected machine can\u2019t rewrite, and patch systems you own. If you inspect a suspicious file, do it on a lab machine you can wipe. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "logging",
+    "title": "Logging",
+    "aliases": [
+      "log",
+      "logs",
+      "logging",
+      "alert",
+      "alerts",
+      "detection",
+      "siem"
+    ],
+    "body": "A log is the record of who did what and when. An alert is a rule that asks a human to look. Record sign-in failures and admin changes, never passwords, and keep clocks in sync so the story stays in order. Too many alerts train people to ignore the real one. Tune rules on systems you administer. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "linux",
+    "title": "Linux lab basics",
+    "aliases": [
+      "linux",
+      "permission",
+      "permissions",
+      "sudo",
+      "root",
+      "chmod"
+    ],
+    "body": "On a Linux lab, use a normal account and sudo for the rare command that needs it. Mode 644 means the owner can write and everyone else can only read. A service should run as its own limited user so one bug isn\u2019t the whole machine. Practice on a VM you can reinstall. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "xss",
+    "title": "Cross-site scripting",
+    "aliases": [
+      "xss",
+      "cross-site scripting",
+      "cross site scripting"
+    ],
+    "body": "Cross-site scripting means a page treated untrusted input as code, so a browser ran it. Defend apps you build by encoding output, using templates that escape by default, setting a Content-Security-Policy, and marking session cookies HttpOnly. Practice only on a deliberately vulnerable app you host yourself. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "sql",
+    "title": "SQL injection",
+    "aliases": [
+      "sql injection",
+      "sqli",
+      "sql"
+    ],
+    "body": "SQL injection means input changed the meaning of a database query. The fix is parameterized queries, so the input stays a value and cannot rewrite the sentence. Give the app\u2019s database account only the rights it needs. Never try this against a database you don\u2019t own. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "csrf",
+    "title": "Cross-site request forgery",
+    "aliases": [
+      "csrf",
+      "cross-site request forgery",
+      "cross site request forgery"
+    ],
+    "body": "Cross-site request forgery tricks a browser into sending a request the person didn\u2019t mean to send, with their cookies attached. On apps you build, use SameSite cookies and a CSRF token for anything that changes data. Don\u2019t take state changes from a bare GET. Test that only on your own applications. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "dns",
+    "title": "DNS",
+    "aliases": [
+      "dns",
+      "domain name",
+      "domain names"
+    ],
+    "body": "DNS turns names into IP addresses. Attackers register lookalike names, so read the real host carefully. The padlock does not check the spelling for you. On resolvers you run, don\u2019t leave zone transfers open to the world, and log queries if you can. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "https",
+    "title": "HTTPS and TLS",
+    "aliases": [
+      "https",
+      "tls",
+      "ssl",
+      "certificate",
+      "certificates"
+    ],
+    "body": "HTTPS uses TLS so the path can\u2019t read the traffic, and so the browser can check the certificate name. A valid certificate does not mean the site is honest \u2014 phishing sites buy them too. Always read the hostname. Turn HTTP into HTTPS on sites you run, then consider HSTS once it is solid. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "least-privilege",
+    "title": "Least privilege",
+    "aliases": [
+      "least privilege",
+      "privilege",
+      "privileges"
+    ],
+    "body": "Least privilege means each person and each program gets only the access the job needs. Extra admin rights become extra damage when a password leaks. Review unused access on systems you manage and take it away. The idea is the same for files, firewalls, cloud roles, and database accounts. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "defense-in-depth",
+    "title": "Defense in depth",
+    "aliases": [
+      "defense in depth",
+      "defence in depth",
+      "layered defense",
+      "layered defence"
+    ],
+    "body": "Defense in depth is several independent controls, so one failure doesn\u2019t hand over the system. A password plus MFA plus logs plus backups beats any single wall. When you design a lab service, name two controls that would both have to fail before data leaves, then test each one. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "authentication",
+    "title": "Authentication and authorization",
+    "aliases": [
+      "authentication",
+      "authorization",
+      "authn",
+      "authz",
+      "auth"
+    ],
+    "body": "Authentication asks who you are. Authorization asks what that identity may do. A login is not permission to open every record. On apps you build, check the owner or the role on each sensitive action, and prove it with two test accounts you created. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ransomware",
+    "title": "Ransomware",
+    "aliases": [
+      "ransomware"
+    ],
+    "body": "Ransomware locks or steals data and demands payment. Don\u2019t make payment your plan \u2014 it doesn\u2019t reliably bring files back. Keep offline or immutable backups, limit who can write to shared folders, and practice a restore on a system you own before you need it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mfa",
+    "title": "Multi-factor authentication",
+    "aliases": [
+      "mfa",
+      "2fa",
+      "multi-factor",
+      "multifactor",
+      "two-factor",
+      "two factor"
+    ],
+    "body": "Multi-factor authentication asks for a second kind of proof, such as an app prompt or a security key, so a stolen password isn\u2019t enough. It is not immunity to phishing. Don\u2019t approve a prompt you didn\u2019t start, and prefer a security key for accounts that matter. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "backups",
+    "title": "Backups",
+    "aliases": [
+      "backup",
+      "backups",
+      "restore"
+    ],
+    "body": "A backup you have never restored is a hope, not a plan. Keep a copy the original machine cannot encrypt or delete, protect the backup credentials like production secrets, and do a test restore on a lab system you own. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "firewall",
+    "title": "Firewalls",
+    "aliases": [
+      "firewall",
+      "firewalls"
+    ],
+    "body": "A firewall is a policy for which connections are allowed. Default-deny, then open only what a service needs. A rule named \u201cstrict\u201d that allows everything is still allow-all. Change firewall policy only on networks you are allowed to administer, and keep a note of why each hole exists. Only test systems you own or have permission to test."
+  }
+]

@@ -1,0 +1,702 @@
+[
+  {
+    "id": "net-001",
+    "category": "Networking Basics",
+    "difficulty": "easy",
+    "question": "What does the \u201cIP\u201d in IP address stand for?",
+    "options": [
+      "Internet Protocol",
+      "Internal Port",
+      "Identity Packet",
+      "Instant Pathway"
+    ],
+    "correct_index": 0,
+    "explanation": "An IP address is how Internet Protocol delivers packets to a host. Defenders note which addresses talk to their systems and treat unexpected ones as something to investigate, not as a toy to poke. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "net-002",
+    "category": "Networking Basics",
+    "difficulty": "easy",
+    "question": "Which addresses are reserved for private networks?",
+    "options": [
+      "10/8, 172.16/12, and 192.168/16",
+      "Only addresses that start with 8",
+      "Every address above 200",
+      "Only IPv6 localhost"
+    ],
+    "correct_index": 0,
+    "explanation": "Those RFC 1918 ranges are for inside a local network. They are not routed on the public internet, and they are not a security boundary. Anything that can reach the network can still reach those hosts, so segment and log. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "net-003",
+    "category": "Networking Basics",
+    "difficulty": "medium",
+    "question": "What is the main job of DNS?",
+    "options": [
+      "Turn names into IP addresses",
+      "Encrypt every web page",
+      "Assign MAC addresses",
+      "Block phishing by default"
+    ],
+    "correct_index": 0,
+    "explanation": "DNS is the internet\u2019s phone book. Attackers abuse it with lookalike names. Defenders log queries on resolvers they run, watch new domains, and read the real hostname instead of trusting link text. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "net-004",
+    "category": "Networking Basics",
+    "difficulty": "medium",
+    "question": "Which statement best contrasts TCP and UDP?",
+    "options": [
+      "TCP checks delivery and order; UDP does not",
+      "UDP is always encrypted and TCP is not",
+      "TCP is only for email",
+      "They are two names for one protocol"
+    ],
+    "correct_index": 0,
+    "explanation": "TCP\u2019s handshake and retries suit shells, the web, and mail. UDP suits lookups and live media where waiting is worse than a lost packet. Know which of your services should speak which, so a surprise protocol stands out. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "net-005",
+    "category": "Networking Basics",
+    "difficulty": "hard",
+    "question": "What are the three steps of a normal TCP setup?",
+    "options": [
+      "SYN, SYN-ACK, then ACK",
+      "GET, 200 OK, then FIN",
+      "ARP, DHCP, then ping",
+      "USER, PASS, then DATA"
+    ],
+    "correct_index": 0,
+    "explanation": "That three-way handshake opens a TCP session before application data. Lots of SYNs and few finished connections can mean a scan or a flood against a service you run. Log it and rate-limit at the edge. TLS has its own handshake later \u2014 don\u2019t mix the two. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "port-001",
+    "category": "Common Ports",
+    "difficulty": "easy",
+    "question": "Which port is the usual default for HTTPS?",
+    "options": [
+      "443",
+      "80",
+      "22",
+      "21"
+    ],
+    "correct_index": 0,
+    "explanation": "Browsers expect HTTPS on 443. A \u201csecure\u201d prompt on a strange port is a reason to check the hostname and certificate. On a lab you own, don\u2019t leave 443 open unless something should actually be serving the web. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "port-002",
+    "category": "Common Ports",
+    "difficulty": "easy",
+    "question": "Which port is the usual default for SSH?",
+    "options": [
+      "22",
+      "23",
+      "3389",
+      "445"
+    ],
+    "correct_index": 0,
+    "explanation": "SSH on 22 is the standard encrypted remote shell. Telnet on 23 sends keystrokes in the clear \u2014 don\u2019t use it. Prefer keys over passwords, avoid root login, and don\u2019t expose SSH to the whole internet if a VPN or allow-list will do. Moving the port is not a real control. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "port-003",
+    "category": "Common Ports",
+    "difficulty": "medium",
+    "question": "What service usually uses port 53?",
+    "options": [
+      "DNS",
+      "SMTP mail submission",
+      "MySQL",
+      "Remote Desktop"
+    ],
+    "correct_index": 0,
+    "explanation": "DNS uses port 53, often UDP for queries and TCP for large answers and zone transfers. Zone transfers should not be open to the world. On a lab resolver you own, very frequent or huge queries are worth a look. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "port-004",
+    "category": "Common Ports",
+    "difficulty": "medium",
+    "question": "Why is RDP (port 3389) risky when published to the internet?",
+    "options": [
+      "Attackers guess passwords against remote desktops",
+      "HTTPS stops working without it",
+      "It cannot be reached from outside",
+      "It patches Windows by itself"
+    ],
+    "correct_index": 0,
+    "explanation": "Remote Desktop is real admin access, which is why password guessing targets it. Keep it off the public internet. Reach it through a VPN, allow-list source addresses, require MFA where you can, and alert on failed logons. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "port-005",
+    "category": "Common Ports",
+    "difficulty": "hard",
+    "question": "What is the defensive stance on port 445?",
+    "options": [
+      "SMB file sharing \u2014 don\u2019t expose it to the internet",
+      "Leave it open so certificates renew",
+      "It is secure DNS and belongs on every laptop",
+      "It is printer discovery with no risk"
+    ],
+    "correct_index": 0,
+    "explanation": "SMB lets systems share files. When it is reachable and unpatched it becomes a path for worms. Patch, disable SMBv1, firewall it so only the file servers that need it can talk, and never publish 445 on the WAN. You don\u2019t need exploit steps to make that call. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "hdr-001",
+    "category": "HTTP and Security Headers",
+    "difficulty": "easy",
+    "question": "What does HTTPS add that plain HTTP does not?",
+    "options": [
+      "Encryption in transit and a certificate name check",
+      "Proof the website is honest",
+      "Automatic malware removal",
+      "A connection with no certificates"
+    ],
+    "correct_index": 0,
+    "explanation": "TLS protects bytes on the wire and lets the browser check the certificate\u2019s name. It does not mean the site is trustworthy \u2014 phishing sites can have valid certificates. Read the hostname, not just the padlock. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "hdr-002",
+    "category": "HTTP and Security Headers",
+    "difficulty": "easy",
+    "question": "What is an HTTP security header?",
+    "options": [
+      "A browser safety instruction sent by the server",
+      "The user\u2019s password on every request",
+      "A firewall rule stored in the router",
+      "A malware signature"
+    ],
+    "correct_index": 0,
+    "explanation": "Headers such as Content-Security-Policy and Strict-Transport-Security tell the browser how to behave. They are free defense on sites you own. Test them in a lab before production. A missing header is a finding, not permission to attack someone else. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "hdr-003",
+    "category": "HTTP and Security Headers",
+    "difficulty": "medium",
+    "question": "What is Content-Security-Policy mainly for?",
+    "options": [
+      "Limiting which sources may supply scripts and styles",
+      "Hiding the server\u2019s IP address",
+      "Encrypting the database",
+      "Replacing passwords"
+    ],
+    "correct_index": 0,
+    "explanation": "A tight CSP makes many cross-site scripting bugs harder to abuse because the browser refuses unexpected script. Start in report-only mode on a site you own, read the reports, then enforce. CSP complements output encoding; it does not replace it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "hdr-004",
+    "category": "HTTP and Security Headers",
+    "difficulty": "medium",
+    "question": "What does Strict-Transport-Security ask the browser to do?",
+    "options": [
+      "Use HTTPS for that host and skip plain HTTP",
+      "Disable JavaScript",
+      "Store the user\u2019s password",
+      "Open the site in a popup"
+    ],
+    "correct_index": 0,
+    "explanation": "HSTS closes the gap where a first visit might still be HTTP. Only enable it on hosts you control that really speak HTTPS. Be careful with includeSubDomains \u2014 a mistake can stick until max-age runs out. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "hdr-005",
+    "category": "HTTP and Security Headers",
+    "difficulty": "hard",
+    "question": "Which control best reduces clickjacking?",
+    "options": [
+      "CSP frame-ancestors, or the older X-Frame-Options",
+      "Turning off TLS",
+      "Using a shorter URL",
+      "Removing passwords from the page"
+    ],
+    "correct_index": 0,
+    "explanation": "Clickjacking hides your page in a frame so a person clicks your button thinking it is something else. frame-ancestors says which sites, if any, may embed you. Set it on apps you own, especially one-click sensitive actions. X-Frame-Options DENY or SAMEORIGIN is the older form. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "pw-001",
+    "category": "Password Hygiene",
+    "difficulty": "easy",
+    "question": "Why should every account have its own password?",
+    "options": [
+      "One leak then can\u2019t unlock your other accounts",
+      "So the password is easier to share",
+      "Short repeated passwords are safer",
+      "Browsers require identical passwords"
+    ],
+    "correct_index": 0,
+    "explanation": "Reused passwords turn one breach into many. A password manager can generate long unique ones. Turn on MFA for the manager and for email, because email can reset everything else. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "pw-002",
+    "category": "Password Hygiene",
+    "difficulty": "easy",
+    "question": "What is a password manager\u2019s main defensive job?",
+    "options": [
+      "Create and store long unique passwords for you",
+      "Share one master password in chat",
+      "Turn MFA off",
+      "Put passwords in source code"
+    ],
+    "correct_index": 0,
+    "explanation": "People are bad at uniqueness and length. A reputable manager, a strong master password, and MFA beat a clever pattern you repeat. Never put live passwords in code, tickets, or screenshots. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "pw-003",
+    "category": "Password Hygiene",
+    "difficulty": "medium",
+    "question": "Why prefer a long passphrase over a short tricky password?",
+    "options": [
+      "Length multiplies the guesses an attacker needs",
+      "Symbols are illegal now",
+      "Short passwords make attackers quit",
+      "A passphrase cannot be hashed"
+    ],
+    "correct_index": 0,
+    "explanation": "Each extra character multiplies the search space. An original phrase beats a short word with a couple of symbol swaps. On systems you administer, set a real minimum length, reject known-breached passwords, and don\u2019t force rotation unless you suspect a compromise. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "pw-004",
+    "category": "Password Hygiene",
+    "difficulty": "medium",
+    "question": "What does multi-factor authentication add?",
+    "options": [
+      "A second, different proof besides the password",
+      "A second copy of the same password",
+      "Automatic disk encryption",
+      "Immunity to every phish"
+    ],
+    "correct_index": 0,
+    "explanation": "MFA pairs something you know with something you have or are, so a stolen password is not enough. It is not magic: prompt fatigue is real. Prefer a security key where you can, and never approve a prompt you did not start. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "pw-005",
+    "category": "Password Hygiene",
+    "difficulty": "hard",
+    "question": "How is credential stuffing different from password spraying?",
+    "options": [
+      "Stuffing replays breached pairs; spraying tries a few common ones",
+      "They are the same attack",
+      "Stuffing only works on paper mail",
+      "Spraying needs the site\u2019s source code"
+    ],
+    "correct_index": 0,
+    "explanation": "Stuffing tries username and password pairs from old breaches. Spraying tries a few common passwords across many accounts to avoid lockouts. Both show up as failures, then a success. On apps you own: rate-limit, require MFA, reject breached passwords, and alert. You don\u2019t need to run either attack to detect them. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ph-001",
+    "category": "Phishing and Social Engineering",
+    "difficulty": "easy",
+    "question": "What is phishing?",
+    "options": [
+      "A fake trusted message meant to steal access or money",
+      "A brand of firewall",
+      "A legal port scan",
+      "Software that only runs on routers"
+    ],
+    "correct_index": 0,
+    "explanation": "Phishing shows up as email, text, or a fake page. Slow down: check the real sender domain, distrust urgency, and open the site from your own bookmark instead of the message\u2019s link. Report the lure so the next person is warned. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ph-002",
+    "category": "Phishing and Social Engineering",
+    "difficulty": "easy",
+    "question": "What is a safe first check before trusting a link?",
+    "options": [
+      "Read the real hostname, not the visible label",
+      "Click first, then decide",
+      "Trust it if it uses your first name",
+      "Trust it if a padlock might appear"
+    ],
+    "correct_index": 0,
+    "explanation": "Link text can say your bank while the target is somewhere else. Preview the URL and compare the registered domain. Lookalike letters are a classic trick. When you are unsure, navigate there yourself. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ph-003",
+    "category": "Phishing and Social Engineering",
+    "difficulty": "medium",
+    "question": "How is spear phishing different from a bulk phish?",
+    "options": [
+      "It targets a specific person, often using real details",
+      "It only arrives on paper",
+      "It can never name a real company",
+      "It always uses a virus and never a link"
+    ],
+    "correct_index": 0,
+    "explanation": "Attackers read what you and your org publish, then write a lure that feels personal. \u201cThey knew the project name\u201d is not proof. Verify unusual requests, especially payments, on a channel you already trust \u2014 not the contact info inside the suspicious message. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ph-004",
+    "category": "Phishing and Social Engineering",
+    "difficulty": "medium",
+    "question": "What is pretexting?",
+    "options": [
+      "A made-up role and story meant to break your process",
+      "Encrypting a disk without a key",
+      "Scanning for open ports",
+      "A header that blocks frames"
+    ],
+    "correct_index": 0,
+    "explanation": "\u201cI\u2019m from IT, read me the code\u201d is pretexting. Real support will not ask you to skip the process you were trained on. You are allowed to refuse and call back on a number you looked up yourself. Praise the check; don\u2019t shame the pause. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "ph-005",
+    "category": "Phishing and Social Engineering",
+    "difficulty": "hard",
+    "question": "Which pattern most strongly suggests business email compromise?",
+    "options": [
+      "Urgent payment-detail change from an almost-right mailbox",
+      "An email that includes a company logo",
+      "A message sent during office hours",
+      "A newsletter you already subscribed to"
+    ],
+    "correct_index": 0,
+    "explanation": "Business email compromise is about moving money, not malware. Attackers spoof a thread or use a real compromised mailbox and change the destination account. Verify payment changes out of band, require a second approver, and still challenge \u201cthe CEO.\u201d SPF, DKIM, and DMARC help against spoofing but not a stolen real mailbox. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mal-001",
+    "category": "Malware Basics",
+    "difficulty": "easy",
+    "question": "What is malware?",
+    "options": [
+      "Software meant to harm, spy, or take control",
+      "Any program written in Python",
+      "A missed patch by itself",
+      "A long password"
+    ],
+    "correct_index": 0,
+    "explanation": "Malware is a purpose, not a language. It includes ransomware, stealers, and remote-control tools. Defense starts simply: don\u2019t run untrusted attachments, keep backups the infected machine can\u2019t rewrite, patch, and use normal endpoint protection on systems you own. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mal-002",
+    "category": "Malware Basics",
+    "difficulty": "easy",
+    "question": "What\u2019s the safest default for an unexpected attachment?",
+    "options": [
+      "Don\u2019t open it until the sender confirms out of band",
+      "Open it if the icon looks familiar",
+      "Enable macros so the document works",
+      "Forward it to the whole team first"
+    ],
+    "correct_index": 0,
+    "explanation": "Accounts get taken over, and display names are easy to fake. A document that demands macros is a common way to run code. If you must inspect a file, do it on a lab machine you can throw away, with macros still off. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mal-003",
+    "category": "Malware Basics",
+    "difficulty": "medium",
+    "question": "What is the practical defensive answer to ransomware?",
+    "options": [
+      "Offline backups you have actually restored",
+      "Pay quickly so the price stays low",
+      "Unplug the monitor",
+      "Rename files so they can\u2019t be encrypted"
+    ],
+    "correct_index": 0,
+    "explanation": "Ransomware encrypts or steals data and demands money. Payment is not a reliable way to get files back. Tested backups, least privilege so one user can\u2019t encrypt every share, and no unnecessary remote access are the controls that hold. If it hits a system you own, isolate it and get a responder \u2014 don\u2019t experiment on the only copy. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mal-004",
+    "category": "Malware Basics",
+    "difficulty": "medium",
+    "question": "What is a Trojan, in malware terms?",
+    "options": [
+      "A program that looks useful but hides a malicious function",
+      "A routing protocol",
+      "A firewall brand",
+      "A form of strong encryption"
+    ],
+    "correct_index": 0,
+    "explanation": "The danger is invited in. Cracks and too-good free tools are common wrappers. Download software from the vendor you can verify, check signatures when they publish them, and treat a surprise installer on a lab box as something to wipe. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "mal-005",
+    "category": "Malware Basics",
+    "difficulty": "hard",
+    "question": "What does \u201cliving off the land\u201d mean for a defender?",
+    "options": [
+      "Intruders use built-in admin tools that look like IT work",
+      "Malware that only runs outdoors",
+      "An attack that always needs a brand-new bug",
+      "A law that bans security tools"
+    ],
+    "correct_index": 0,
+    "explanation": "Built-in shells and schedulers are not malware, so a file hash may never fire. Baseline who runs script hosts, from where, and when. Log process creation on systems you administer, and keep admin rights off everyday accounts so a stolen user password can\u2019t reach those tools. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "log-001",
+    "category": "Logging and Detection",
+    "difficulty": "easy",
+    "question": "Why log failed sign-in attempts?",
+    "options": [
+      "They are often the first sign of guessing or stuffing",
+      "Successes cannot be stored",
+      "So you can collect passwords",
+      "Logs replace multi-factor authentication"
+    ],
+    "correct_index": 0,
+    "explanation": "A quiet account that suddenly fails dozens of times is telling you something. Log the time, account, source, and result \u2014 never the password. Alert when the count leaves its normal range. This is one of the first wires to add on a lab app you built. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "log-002",
+    "category": "Logging and Detection",
+    "difficulty": "easy",
+    "question": "How is an alert different from a log?",
+    "options": [
+      "A log is the record; an alert flags what a human should see",
+      "They are the same thing",
+      "Alerts are kept and logs are forbidden",
+      "A log exists only if an attacker sends it"
+    ],
+    "correct_index": 0,
+    "explanation": "Alert on everything and people stop reading. Log nothing and you cannot investigate. Pick a few high-value alerts \u2014 new admin, backup failure, a burst of sign-in failures \u2014 and keep broader logs for when you need to look back. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "log-003",
+    "category": "Logging and Detection",
+    "difficulty": "medium",
+    "question": "What is appropriate to log on a web app you own?",
+    "options": [
+      "Sign-ins and admin changes, but never the password",
+      "Every user\u2019s password, in case they forget",
+      "Only successes, dropping every failure",
+      "Full card numbers, to make refunds easy"
+    ],
+    "correct_index": 0,
+    "explanation": "Good logs answer who did what, when, and from where. Secrets in logs become a second breach. Redact tokens, keep just enough of an id to investigate, protect the log store like production data, and choose a retention period on purpose. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "log-004",
+    "category": "Logging and Detection",
+    "difficulty": "medium",
+    "question": "Why synchronize clocks on every lab system?",
+    "options": [
+      "So events from different machines stay in true order",
+      "So passwords expire faster",
+      "So DNS is encrypted",
+      "Clocks don\u2019t affect an investigation"
+    ],
+    "correct_index": 0,
+    "explanation": "A laptop a few minutes off can make \u201clogin, then alert, then block\u201d look backwards. Point systems you own at a trusted time source and log in UTC. It is a boring control that makes every later control more useful. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "log-005",
+    "category": "Logging and Detection",
+    "difficulty": "hard",
+    "question": "What is a false positive, and why does it matter?",
+    "options": [
+      "A false alarm that trains people to ignore alerts",
+      "A confirmed intrusion",
+      "A backup that restored correctly",
+      "A password that was hashed"
+    ],
+    "correct_index": 0,
+    "explanation": "Detection is a tradeoff. A rule that matches too much gets muted. A rule that never matches gives false comfort. Tune on telemetry from systems you run: mark the noise, adjust, and write down why. Don\u2019t \u201ctest\u201d noisy rules by touching systems you don\u2019t have permission to test. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "lin-001",
+    "category": "Linux Basics for Labs",
+    "difficulty": "easy",
+    "question": "In a Linux lab you own, what does ls do?",
+    "options": [
+      "Lists files and directories",
+      "Deletes the current directory",
+      "Starts a web server",
+      "Changes your password"
+    ],
+    "correct_index": 0,
+    "explanation": "ls is a read-only look around. ls -l adds owners and permissions, which is what you want on a lab box. Commands that delete or overwrite deserve a second look. Practice in a directory or VM you created, not on a system you cannot reinstall. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "lin-002",
+    "category": "Linux Basics for Labs",
+    "difficulty": "easy",
+    "question": "Why shouldn\u2019t everyday work happen as root?",
+    "options": [
+      "A mistake or a bad program then owns the whole machine",
+      "Root is slower at reading files",
+      "Root cannot use the network",
+      "Only root accounts can be logged"
+    ],
+    "correct_index": 0,
+    "explanation": "Root bypasses ordinary file permissions. Use a normal account and elevate for the one command that needs it, so the elevation can be logged. The habit transfers from a lab VM you own straight to production. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "lin-003",
+    "category": "Linux Basics for Labs",
+    "difficulty": "medium",
+    "question": "On a typical Linux system, what does mode 644 mean?",
+    "options": [
+      "Owner can read and write; everyone else can only read",
+      "Everyone can read, write, and execute",
+      "Nobody can read the file",
+      "Only the group can write"
+    ],
+    "correct_index": 0,
+    "explanation": "The three digits are owner, group, and others. 6 is read+write, 4 is read. A world-writable file means any local account can change it. When you harden a lab service, secrets should be readable only by the account that needs them, often mode 600. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "lin-004",
+    "category": "Linux Basics for Labs",
+    "difficulty": "medium",
+    "question": "What is sudo for?",
+    "options": [
+      "Running one command with elevated rights, and logging who did it",
+      "Hiding a command from the logs",
+      "Turning file permissions off for good",
+      "Creating a wireless network"
+    ],
+    "correct_index": 0,
+    "explanation": "sudo is how you avoid living as root. Give a lab user the specific commands they need rather than blanket rights. Unexpected sudo is itself a signal. Keep the sudoers file under change control on machines you administer. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "lin-005",
+    "category": "Linux Basics for Labs",
+    "difficulty": "hard",
+    "question": "Why run a network service as its own unprivileged user?",
+    "options": [
+      "A compromise then starts with that user\u2019s rights, not root",
+      "So the service can read every private key",
+      "Unprivileged users cannot be monitored",
+      "Linux requires every service to be root"
+    ],
+    "correct_index": 0,
+    "explanation": "This is least privilege for daemons. A web server that can read the whole disk is one bug away from leaking it. Create a dedicated user, give it only the directories it needs, and drop root after binding a low port if you can. Practice on a lab VM you are allowed to break. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "web-001",
+    "category": "Web Security Concepts",
+    "difficulty": "easy",
+    "question": "What is input validation, from the defender\u2019s side?",
+    "options": [
+      "Checking data matches the shape you expected before trusting it",
+      "Letting the browser do all security checks",
+      "Encrypting the logo",
+      "A substitute for signing in"
+    ],
+    "correct_index": 0,
+    "explanation": "Validate on the server you control. Checks in the browser are for convenience and can be skipped. Constrain length, type, and allowed values. Validation is where a careful app starts; encoding and parameterized queries still matter beside it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "web-002",
+    "category": "Web Security Concepts",
+    "difficulty": "medium",
+    "question": "What is cross-site scripting, conceptually?",
+    "options": [
+      "Untrusted input runs as script in someone\u2019s browser",
+      "A faster way to compress images",
+      "A lock that forces HTTPS",
+      "A database backup format"
+    ],
+    "correct_index": 0,
+    "explanation": "If a page you own echoes input into HTML without encoding, a visitor\u2019s browser may run someone else\u2019s script in that site\u2019s session. Encode for the right context, use templates that escape by default, set a Content-Security-Policy, and mark cookies HttpOnly. Study this on a practice app you host yourself. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "web-003",
+    "category": "Web Security Concepts",
+    "difficulty": "medium",
+    "question": "What is SQL injection, and the standard fix?",
+    "options": [
+      "Input changes a query. Keep it data with parameters",
+      "A way to speed queries by skipping passwords",
+      "A header that blocks frames",
+      "A kind of phishing email"
+    ],
+    "correct_index": 0,
+    "explanation": "If you build a query by gluing strings, a crafted value can change the sentence. Parameters keep the SQL structure fixed and the input boxed as a value. Use them everywhere you write queries, including labs. A low-privilege database account limits the blast radius. Don\u2019t practice this on databases you don\u2019t own. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "web-004",
+    "category": "Web Security Concepts",
+    "difficulty": "medium",
+    "question": "What is cross-site request forgery?",
+    "options": [
+      "Another site sends a request using the victim\u2019s cookies",
+      "A certificate that expired",
+      "Guessing a local password file",
+      "A DNS record type"
+    ],
+    "correct_index": 0,
+    "explanation": "The browser attaches cookies on its own. If a state-changing action has no secret the other site can\u2019t see, that site can submit it for the user. On apps you build: SameSite cookies, plus a CSRF token for changes. Don\u2019t accept state changes from a bare GET. Test the flow only on applications you own. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "web-005",
+    "category": "Web Security Concepts",
+    "difficulty": "hard",
+    "question": "What does the browser same-origin policy do?",
+    "options": [
+      "Stops a script on one origin from freely reading another",
+      "Encrypts the whole local network",
+      "Blocks every download",
+      "Replaces the need to sign in"
+    ],
+    "correct_index": 0,
+    "explanation": "An origin is scheme, host, and port. The policy is why a random page cannot read your webmail. CORS is how a server you control opts in to sharing. A wildcard CORS policy on an authenticated API is a mistake. Check it on a lab app you wrote before you ship it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "def-001",
+    "category": "Defensive Thinking",
+    "difficulty": "easy",
+    "question": "How are authentication and authorization different?",
+    "options": [
+      "Authn asks who you are; authz asks what you may do",
+      "They are synonyms",
+      "Authorization only happens on paper",
+      "Authentication is a kind of malware"
+    ],
+    "correct_index": 0,
+    "explanation": "A successful login is not a blank check. After you know who it is, every sensitive action should check a role or an owner. \u201cLogged in, then change the id in the address and see someone else\u2019s record\u201d is a classic bug. Test those checks on apps you own, with two accounts you created. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "def-002",
+    "category": "Defensive Thinking",
+    "difficulty": "easy",
+    "question": "What is the principle of least privilege?",
+    "options": [
+      "Give each person and program only the access the job needs",
+      "Give everyone admin so work never blocks",
+      "Use the shortest password the form allows",
+      "Turn logging off to reduce load"
+    ],
+    "correct_index": 0,
+    "explanation": "Extra privilege is extra blast radius. A lab notebook account does not need to be root, and a backup job does not need every secret. Review access on a schedule and remove what is unused. The same idea covers firewalls, file modes, cloud roles, and database accounts. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "def-003",
+    "category": "Defensive Thinking",
+    "difficulty": "medium",
+    "question": "Which line matches vulnerability, exploit, and patch?",
+    "options": [
+      "Weakness, a way to use it, and the vendor\u2019s fix",
+      "The patch is the attack and the vulnerability is the fix",
+      "An exploit is a firewall log format",
+      "All three words mean password"
+    ],
+    "correct_index": 0,
+    "explanation": "You can defend without writing an exploit. Inventory what you run, read what a weakness allows in plain language, and apply the vendor\u2019s patch or mitigation. If there\u2019s no patch yet, reduce exposure \u2014 take the service off the internet or add a control. Leave exploit development to people whose job and legal authority include it. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "def-004",
+    "category": "Defensive Thinking",
+    "difficulty": "medium",
+    "question": "What is defense in depth?",
+    "options": [
+      "Several independent controls, so one miss isn\u2019t fatal",
+      "One long password and nothing else",
+      "Turning every machine off",
+      "A single allow-all rule with a serious name"
+    ],
+    "correct_index": 0,
+    "explanation": "MFA plus logging plus least privilege plus backups means a stolen password is not the end of the story. No layer is perfect. When you design a lab service, name at least two controls that would both have to fail before data leaves. Then check that each one actually works, on systems you may touch. Only test systems you own or have permission to test."
+  },
+  {
+    "id": "def-005",
+    "category": "Defensive Thinking",
+    "difficulty": "hard",
+    "question": "What has to be true before any security test?",
+    "options": [
+      "You own the system, or you have clear written permission",
+      "It is on the internet, which counts as permission",
+      "You found a tutorial, which counts as permission",
+      "The port is open, so it is an invitation"
+    ],
+    "correct_index": 0,
+    "explanation": "Permission is the line between a lab and a crime. \u201cJust looking\u201d at someone else\u2019s system can still be unauthorized. Get scope in writing: hosts, times, techniques that are off limits, and who to call if something breaks. Practice on your own VMs or student platforms built for it. Only test systems you own or have permission to test."
+  }
+]
