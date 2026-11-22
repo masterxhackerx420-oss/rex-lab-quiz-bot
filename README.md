@@ -1,5 +1,7 @@
 # Rex's Lab Quiz Bot
 
+![Rex, a timber wolf pirate instructor in a wood lab under cyan holograms, with the title Rex's Lab Quiz Bot](rex-lab.jpg)
+
 A friendly Discord quiz bot that teaches ethical hacking fundamentals from the **defensive** side. Rex is the lab instructor: direct, encouraging, a little playful. Every question is theory, hygiene, or a lab habit.
 
 **This bot is for education and defense only.** It does not scan live targets, send exploits, or tell you how to attack systems. Only test systems you own or have written permission to test.
